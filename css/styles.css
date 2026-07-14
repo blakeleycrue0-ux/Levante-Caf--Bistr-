@@ -152,6 +152,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   font-size: clamp(2.6rem, 5.4vw, 4.6rem); display: flex; flex-direction: column;
   margin-bottom: 1.5rem;
 }
+.line-mask { display: block; overflow: hidden; }
+.line-mask .line {
+  display: inline-block; transform: translateY(110%);
+  transition: transform 1s var(--ease);
+}
+.line-mask .line.up { transform: translateY(0); }
 .hero-sub {
   font-size: 1.05rem; line-height: 1.65; color: var(--ink-soft);
   max-width: 46ch; margin-bottom: 2.1rem;
@@ -175,6 +181,17 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   box-shadow: 0 0 0 0 rgba(181,96,58,.55);
 }
 .btn-price { opacity: .75; font-size: .85rem; border-left: 1px solid rgba(255,255,255,.3); padding-left: .6rem; }
+
+/* shine sweep across primary buttons */
+.shine::before {
+  content: ""; position: absolute; top: 0; left: -80%; width: 50%; height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.35), transparent);
+  transform: skewX(-20deg); transition: left .6s ease; pointer-events: none;
+}
+.shine:hover::before { left: 130%; }
+
+/* magnetic buttons follow the cursor slightly */
+.magnetic { transition: transform .25s var(--ease), background .3s ease, box-shadow .3s ease; will-change: transform; }
 .btn-block { width: 100%; justify-content: space-between; }
 .btn-large { padding: 1.2rem 2.2rem; font-size: 1.05rem; }
 
@@ -317,9 +334,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .feature-card {
   background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 2.2rem 1.7rem; transition: transform .4s var(--ease), box-shadow .4s var(--ease);
+  padding: 2.2rem 1.7rem; transition: transform .3s var(--ease), box-shadow .4s var(--ease);
+  will-change: transform;
 }
-.feature-card:hover { transform: translateY(-8px) rotate(-.4deg); box-shadow: 0 24px 40px -20px rgba(33,28,22,.22); }
+.feature-card:hover { box-shadow: 0 24px 40px -20px rgba(33,28,22,.22); }
 .feature-icon {
   width: 52px; height: 52px; border-radius: 14px; background: var(--cream);
   display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem;

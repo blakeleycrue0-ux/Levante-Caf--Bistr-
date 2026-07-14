@@ -10,7 +10,7 @@ const SHOPIFY_CHECKOUT = {
   collection: "https://REEMPLAZA-CON-TU-TIENDA.myshopify.com/cart/VARIANT_ID_COLLECTION:1",
 };
 
-const PACK_PRICES = { pair: "54,99 €", collection: "84,99 €" };
+const PACK_PRICES = { pair: "$62.99", collection: "$96.99" };
 let currentPack = "pair";
 let currentFinish = "walnut";
 
@@ -33,6 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
   initFaq();
   initParallax();
   initStickyBuy();
+  initMagnetic();
+  initTiltCards();
+  initMouseParallax();
+  initHeroLines();
 });
 
 /* ---------- Custom cursor ---------- */
@@ -167,7 +171,7 @@ function initPackOptions() {
       document.querySelectorAll(".pack-option").forEach((o) => o.classList.remove("active"));
       opt.classList.add("active");
       if (btnPrice) btnPrice.textContent = PACK_PRICES[currentPack];
-      if (stickyPrice) stickyPrice.textContent = "Desde " + PACK_PRICES[currentPack];
+      if (stickyPrice) stickyPrice.textContent = "From " + PACK_PRICES[currentPack];
     });
   });
 }
@@ -210,6 +214,60 @@ function initParallax() {
     },
     { passive: true }
   );
+}
+
+/* ---------- Magnetic buttons ---------- */
+function initMagnetic() {
+  if (matchMedia("(pointer: coarse)").matches) return;
+  document.querySelectorAll(".magnetic").forEach((btn) => {
+    btn.addEventListener("mousemove", (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.22}px, ${y * 0.3}px)`;
+    });
+    btn.addEventListener("mouseleave", () => {
+      btn.style.transform = "";
+    });
+  });
+}
+
+/* ---------- 3D tilt on feature cards ---------- */
+function initTiltCards() {
+  if (matchMedia("(pointer: coarse)").matches) return;
+  document.querySelectorAll("[data-tilt-card]").forEach((card) => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(700px) rotateY(${x * 9}deg) rotateX(${-y * 9}deg) translateY(-6px)`;
+    });
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+    });
+  });
+}
+
+/* ---------- Mouse parallax on hero blobs ---------- */
+function initMouseParallax() {
+  if (matchMedia("(pointer: coarse)").matches) return;
+  const els = document.querySelectorAll("[data-mouse-parallax]");
+  if (!els.length) return;
+  window.addEventListener("mousemove", (e) => {
+    const nx = e.clientX / window.innerWidth - 0.5;
+    const ny = e.clientY / window.innerHeight - 0.5;
+    els.forEach((el) => {
+      const depth = parseFloat(el.dataset.mouseParallax) || 20;
+      el.style.transform = `translate(${nx * depth}px, ${ny * depth}px)`;
+    });
+  });
+}
+
+/* ---------- Hero title line-rise animation ---------- */
+function initHeroLines() {
+  document.querySelectorAll(".hero-title .line").forEach((line, i) => {
+    setTimeout(() => line.classList.add("up"), 250 + i * 160);
+  });
 }
 
 /* ---------- Sticky buy bar ---------- */
