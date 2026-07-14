@@ -47,7 +47,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initTiltCards();
   initMouseParallax();
   initHeroLines();
-  initPromoPopup();
+  initSplitWords();
+  initGalleryArrows();
+  initPromoPill();
   initReviews();
 });
 
@@ -103,7 +105,7 @@ function initMobileMenu() {
 
 /* ---------- Scroll reveal ---------- */
 function initReveal() {
-  const items = document.querySelectorAll(".reveal, .reveal-scale");
+  const items = document.querySelectorAll(".reveal, .reveal-scale, .reveal-pop, .split-words");
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry, i) => {
@@ -188,7 +190,7 @@ function initPackOptions() {
   const stickyPrice = document.getElementById("stickyPrice");
   const finishBlock = document.getElementById("finishBlock");
   const finishNote = document.getElementById("finishNote");
-  const packOptions = document.querySelectorAll(".pack-option");
+  const packOptions = document.querySelectorAll(".pack-option, .pack-card");
   if (!packOptions.length) return;
 
   packOptions.forEach((opt) => {
@@ -197,14 +199,17 @@ function initPackOptions() {
       packOptions.forEach((o) => o.classList.remove("active"));
       opt.classList.add("active");
       if (btnPrice) btnPrice.textContent = PACK_PRICES[currentPack];
-      if (stickyPrice) stickyPrice.textContent = "From " + PACK_PRICES[currentPack];
+      if (stickyPrice) stickyPrice.textContent = PACK_PRICES[currentPack];
 
+      const savingsHint = document.getElementById("savingsHint");
       if (currentPack === "collection") {
         // The Collection always ships 2 ash + 2 walnut: no finish choice
         if (finishBlock) finishBlock.classList.add("locked");
         if (finishNote) finishNote.textContent = "— includes both (2 ash + 2 walnut)";
+        if (savingsHint) savingsHint.textContent = "You're saving $28.99 vs. two 2-packs ✓";
         if (window.setFinish) window.setFinish("mix", FINISH_IMG.mix);
       } else {
+        if (savingsHint) savingsHint.textContent = "The Collection saves you $28.99 vs. two 2-packs →";
         if (finishBlock) finishBlock.classList.remove("locked");
         if (finishNote) finishNote.textContent = "";
         const back = currentFinish === "mix" ? "walnut" : currentFinish;
@@ -321,28 +326,29 @@ function initStickyBuy() {
   io.observe(sentinel);
 }
 
-/* ---------- Discount popup (10s after landing) ---------- */
-function initPromoPopup() {
-  const overlay = document.getElementById("promoOverlay");
-  if (!overlay) return;
+/* ---------- Promo pill + card ---------- */
+function initPromoPill() {
+  const pill = document.getElementById("promoPill");
+  const card = document.getElementById("promoCard");
+  if (!pill || !card) return;
   const closeBtn = document.getElementById("promoClose");
   const codeBtn = document.getElementById("promoCode");
 
-  // shown once per browser session, across both pages
-  if (sessionStorage.getItem("wickPromoSeen")) return;
+  // pill slides in shortly after landing and stays available
+  setTimeout(() => pill.classList.add("show"), 2500);
 
-  setTimeout(() => {
-    overlay.classList.add("show");
-    sessionStorage.setItem("wickPromoSeen", "1");
-  }, PROMO_DELAY_MS);
+  // the card auto-opens once per browser session, 10 s in
+  if (!sessionStorage.getItem("wickPromoSeen")) {
+    setTimeout(() => {
+      card.classList.add("show");
+      sessionStorage.setItem("wickPromoSeen", "1");
+    }, PROMO_DELAY_MS);
+  }
 
-  const close = () => overlay.classList.remove("show");
-  closeBtn.addEventListener("click", close);
-  overlay.addEventListener("click", (e) => {
-    if (e.target === overlay) close();
-  });
+  pill.addEventListener("click", () => card.classList.toggle("show"));
+  closeBtn.addEventListener("click", () => card.classList.remove("show"));
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") close();
+    if (e.key === "Escape") card.classList.remove("show");
   });
 
   if (codeBtn) {
@@ -357,6 +363,48 @@ function initPromoPopup() {
       }, 1400);
     });
   }
+}
+
+/* ---------- Split section titles into rising words ---------- */
+function initSplitWords() {
+  document.querySelectorAll(".split-words").forEach((el) => {
+    const words = el.textContent.trim().split(/\s+/);
+    el.textContent = "";
+    words.forEach((word, i) => {
+      const mask = document.createElement("span");
+      mask.className = "w";
+      const inner = document.createElement("span");
+      inner.textContent = word;
+      inner.style.setProperty("--wi", i);
+      mask.appendChild(inner);
+      el.appendChild(mask);
+      if (i < words.length - 1) el.appendChild(document.createTextNode(" "));
+    });
+  });
+}
+
+/* ---------- Gallery arrows ---------- */
+function initGalleryArrows() {
+  const prev = document.getElementById("galPrev");
+  const next = document.getElementById("galNext");
+  if (!prev || !next) return;
+  const slides = Array.from(document.querySelectorAll(".thumb")).map((t) => ({
+    finish: t.dataset.finish,
+    img: t.dataset.img,
+  }));
+  if (!slides.length) return;
+
+  const current = () => {
+    const active = document.querySelector(".thumb.active");
+    const i = slides.findIndex((s) => s.finish === (active && active.dataset.finish));
+    return i < 0 ? 0 : i;
+  };
+  const go = (dir) => {
+    const i = (current() + dir + slides.length) % slides.length;
+    if (window.setFinish) window.setFinish(slides[i].finish, slides[i].img);
+  };
+  prev.addEventListener("click", () => go(-1));
+  next.addEventListener("click", () => go(1));
 }
 
 /* ---------- Reviews (real ones only — see REVIEWS above) ---------- */
