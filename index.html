@@ -18,25 +18,25 @@
 <div class="progress-bar" id="progressBar"></div>
 
 <header class="nav" id="nav">
-  <a href="#top" class="logo">WICK<span class="logo-dot">.</span></a>
+  <a href="index.html" class="logo">WICK<span class="logo-dot">.</span></a>
   <nav class="nav-links">
-    <a href="#product">Product</a>
     <a href="#details">Details</a>
     <a href="#install">Install</a>
     <a href="#faq">FAQ</a>
+    <a href="product.html">Shop</a>
   </nav>
-  <button class="nav-cta magnetic" data-buy data-pack="pair">Buy now</button>
+  <a href="product.html" class="nav-cta magnetic">Buy now</a>
   <button class="nav-burger" id="navBurger" aria-label="Menu">
     <span></span><span></span>
   </button>
 </header>
 
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#product">Product</a>
   <a href="#details">Details</a>
   <a href="#install">Install</a>
   <a href="#faq">FAQ</a>
-  <button class="mobile-buy" data-buy data-pack="pair">Buy now</button>
+  <a href="product.html">Shop</a>
+  <a href="product.html" class="mobile-buy">Buy now</a>
 </div>
 
 <main id="top">
@@ -58,11 +58,11 @@
         that brings order to an entryway, a bathroom, a kitchen.
       </p>
       <div class="hero-cta-row reveal">
-        <button class="btn-primary magnetic shine" data-buy data-pack="pair">
+        <a href="product.html" class="btn-primary magnetic shine">
           <span>Buy now</span>
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <a href="#product" class="btn-ghost">See the product ↓</a>
+        </a>
+        <a href="#details" class="btn-ghost">See the details ↓</a>
       </div>
       <p class="hero-price reveal">From <strong>$62.99</strong> · 2-pack</p>
     </div>
@@ -88,76 +88,6 @@
       <span>SCANDINAVIAN DESIGN</span><span>·</span><span>BUILT TO LAST</span><span>·</span>
     </div>
   </div>
-
-  <!-- PRODUCT / SELECTOR -->
-  <section class="product" id="product">
-    <div class="product-gallery">
-      <div class="product-frame reveal-scale">
-        <img id="productImg" src="assets/img/wick-walnut-pair.jpg" alt="WICK walnut" />
-      </div>
-      <div class="product-thumbs">
-        <button class="thumb active" data-finish="walnut" data-img="assets/img/wick-walnut-pair.jpg">
-          <img src="assets/img/wick-walnut-pair.jpg" alt="Walnut" />
-        </button>
-        <button class="thumb" data-finish="ash" data-img="assets/img/wick-ash-pair.jpg">
-          <img src="assets/img/wick-ash-pair.jpg" alt="Ash" />
-        </button>
-        <button class="thumb" data-finish="mix" data-img="assets/img/wick-collection-4.jpg">
-          <img src="assets/img/wick-collection-4.jpg" alt="The Collection" />
-        </button>
-      </div>
-    </div>
-
-    <div class="product-info">
-      <p class="eyebrow reveal">WICK — Wall hook</p>
-      <h2 class="reveal">One simple gesture, every day</h2>
-      <p class="product-desc reveal">
-        Towels, robes, bags, coats or keys: WICK holds whatever your entryway,
-        bathroom or kitchen needs held — no visible screws, no cheap plastic.
-        The contrast between warm wood and the matte steel body makes it work
-        in any style of home.
-      </p>
-
-      <div class="option-block reveal">
-        <span class="option-label">Finish</span>
-        <div class="swatches">
-          <button class="swatch active" data-finish="walnut" data-img="assets/img/wick-walnut-pair.jpg" style="--sw:#5b4030">
-            <span>Walnut</span>
-          </button>
-          <button class="swatch" data-finish="ash" data-img="assets/img/wick-ash-pair.jpg" style="--sw:#d9b98a">
-            <span>Ash</span>
-          </button>
-        </div>
-      </div>
-
-      <div class="option-block reveal">
-        <span class="option-label">Pack</span>
-        <div class="pack-options">
-          <button class="pack-option active" data-pack="pair" data-price="$62.99">
-            <span class="pack-name">2-pack</span>
-            <span class="pack-tag">Buy 1 Get 1 Free</span>
-            <span class="pack-price">$62.99</span>
-          </button>
-          <button class="pack-option" data-pack="collection" data-price="$96.99">
-            <span class="pack-name">The Collection · 4 hooks</span>
-            <span class="pack-tag">Ash + Walnut</span>
-            <span class="pack-price">$96.99</span>
-          </button>
-        </div>
-      </div>
-
-      <button class="btn-primary btn-block shine reveal" data-buy data-pack-dynamic>
-        <span>Add &amp; checkout</span>
-        <span class="btn-price" id="btnPrice">$62.99</span>
-      </button>
-
-      <ul class="assurances reveal">
-        <li>Secure encrypted checkout</li>
-        <li>Insured shipping</li>
-        <li>Easy returns</li>
-      </ul>
-    </div>
-  </section>
 
   <!-- DETAILS / FEATURES -->
   <section class="features" id="details">
@@ -194,10 +124,16 @@
     </div>
   </section>
 
-  <!-- LIFESTYLE PARALLAX -->
+  <!-- LIFESTYLE / VIDEO SLOT -->
   <section class="lifestyle">
-    <div class="lifestyle-media" id="parallaxImg">
-      <img src="assets/img/wick-collection-4.jpg" alt="The full WICK collection" />
+    <div class="lifestyle-media video-slot" id="videoSlot">
+      <!-- Video placeholder: drop your product videos here -->
+      <div class="video-slot-inner">
+        <div class="video-slot-play">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor"/></svg>
+        </div>
+        <p>Video coming soon</p>
+      </div>
     </div>
     <div class="lifestyle-text">
       <h2 class="reveal">Mix the finishes,<br />build your own row</h2>
@@ -206,10 +142,10 @@
         those who'd rather play with contrast than stick to a single tone. Same piece,
         same strength, different warmth.
       </p>
-      <button class="btn-primary magnetic shine reveal" data-buy data-pack="collection">
-        <span>Buy The Collection</span>
+      <a href="product.html" class="btn-primary magnetic shine reveal">
+        <span>Shop The Collection</span>
         <span class="btn-price">$96.99</span>
-      </button>
+      </a>
     </div>
   </section>
 
@@ -274,10 +210,10 @@
   <section class="final-cta">
     <div class="final-blob"></div>
     <h2 class="reveal">Your wall deserves better<br />than a crooked nail.</h2>
-    <button class="btn-primary btn-large magnetic shine reveal" data-buy data-pack="pair">
+    <a href="product.html" class="btn-primary btn-large magnetic shine reveal">
       <span>Get WICK now</span>
       <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
+    </a>
   </section>
 
 </main>
@@ -286,7 +222,7 @@
   <div class="footer-top">
     <span class="logo">WICK<span class="logo-dot">.</span></span>
     <div class="footer-links">
-      <a href="#product">Product</a>
+      <a href="product.html">Shop</a>
       <a href="#details">Details</a>
       <a href="#faq">FAQ</a>
     </div>
@@ -302,7 +238,20 @@
       <span id="stickyPrice">From $62.99</span>
     </div>
   </div>
-  <button class="btn-primary" data-buy data-pack-dynamic>Buy</button>
+  <a href="product.html" class="btn-primary">Buy</a>
+</div>
+
+<!-- DISCOUNT POPUP -->
+<div class="promo-overlay" id="promoOverlay">
+  <div class="promo-modal">
+    <button class="promo-close" id="promoClose" aria-label="Close">×</button>
+    <p class="promo-eyebrow">A little welcome gift</p>
+    <h3 class="promo-title">10% off<br />your first WICK</h3>
+    <p class="promo-text">Use this code at checkout — it's on us.</p>
+    <button class="promo-code" id="promoCode" title="Click to copy">WELCOME10</button>
+    <a href="product.html" class="btn-primary btn-block shine promo-cta"><span>Claim my 10%</span></a>
+    <p class="promo-small">Applied at checkout. One use per customer.</p>
+  </div>
 </div>
 
 <script src="js/main.js"></script>

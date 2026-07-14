@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WICK Wall Hook — Shop | Solid Wood &amp; Steel</title>
+<meta name="description" content="Buy WICK: solid ash or walnut wall hooks with a steel core. 2-pack $62.99, The Collection (4 hooks) $96.99. Tracked shipping." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body class="page-product">
+
+<div class="grain"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<header class="nav" id="nav">
+  <a href="index.html" class="logo">WICK<span class="logo-dot">.</span></a>
+  <nav class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="#description">Description</a>
+    <a href="#shipping">Shipping</a>
+    <a href="#reviews">Reviews</a>
+  </nav>
+  <button class="nav-cta magnetic" data-buy data-pack-dynamic>Buy now</button>
+  <button class="nav-burger" id="navBurger" aria-label="Menu">
+    <span></span><span></span>
+  </button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="#description">Description</a>
+  <a href="#shipping">Shipping</a>
+  <a href="#reviews">Reviews</a>
+  <button class="mobile-buy" data-buy data-pack-dynamic>Buy now</button>
+</div>
+
+<main id="top">
+
+  <!-- PRODUCT / SELECTOR -->
+  <section class="product product-page-top" id="product">
+    <div class="product-gallery">
+      <div class="product-frame reveal-scale">
+        <img id="productImg" src="assets/img/wick-walnut-pair.jpg" alt="WICK walnut" />
+      </div>
+      <div class="product-thumbs">
+        <button class="thumb active" data-finish="walnut" data-img="assets/img/wick-walnut-pair.jpg">
+          <img src="assets/img/wick-walnut-pair.jpg" alt="Walnut" />
+        </button>
+        <button class="thumb" data-finish="ash" data-img="assets/img/wick-ash-pair.jpg">
+          <img src="assets/img/wick-ash-pair.jpg" alt="Ash" />
+        </button>
+        <button class="thumb" data-finish="mix" data-img="assets/img/wick-collection-4.jpg">
+          <img src="assets/img/wick-collection-4.jpg" alt="The Collection" />
+        </button>
+      </div>
+    </div>
+
+    <div class="product-info">
+      <p class="eyebrow reveal">WICK — Wall hook</p>
+      <h1 class="product-h1 reveal">One simple gesture, every day</h1>
+      <p class="product-desc reveal">
+        Towels, robes, bags, coats or keys: WICK holds whatever your entryway,
+        bathroom or kitchen needs held — no visible screws, no cheap plastic.
+        The contrast between warm wood and the matte steel body makes it work
+        in any style of home.
+      </p>
+
+      <div class="option-block reveal" id="finishBlock">
+        <span class="option-label">Finish <span class="option-note" id="finishNote"></span></span>
+        <div class="swatches">
+          <button class="swatch active" data-finish="walnut" data-img="assets/img/wick-walnut-pair.jpg" style="--sw:#5b4030">
+            <span>Walnut</span>
+          </button>
+          <button class="swatch" data-finish="ash" data-img="assets/img/wick-ash-pair.jpg" style="--sw:#d9b98a">
+            <span>Ash</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="option-block reveal">
+        <span class="option-label">Pack</span>
+        <div class="pack-options">
+          <button class="pack-option active" data-pack="pair" data-price="$62.99">
+            <span class="pack-name">2-pack</span>
+            <span class="pack-tag">Buy 1 Get 1 Free</span>
+            <span class="pack-price">$62.99</span>
+          </button>
+          <button class="pack-option" data-pack="collection" data-price="$96.99">
+            <span class="pack-name">The Collection · 4 hooks</span>
+            <span class="pack-tag">Ash + Walnut</span>
+            <span class="pack-price">$96.99</span>
+          </button>
+        </div>
+      </div>
+
+      <button class="btn-primary btn-block shine reveal" data-buy data-pack-dynamic>
+        <span>Add &amp; checkout</span>
+        <span class="btn-price" id="btnPrice">$62.99</span>
+      </button>
+
+      <ul class="assurances reveal">
+        <li>Secure encrypted checkout</li>
+        <li>Insured tracked shipping</li>
+        <li>Easy returns</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- DESCRIPTION -->
+  <section class="description" id="description">
+    <div class="description-inner">
+      <h2 class="section-title reveal">Made of two honest materials</h2>
+      <div class="description-cols">
+        <p class="reveal">
+          WICK starts as a cylinder of solid wood — ash with its pale, calm grain, or
+          walnut with its deep coffee tones. The lower body is finished in a soft matte
+          white that meets the wood in a clean, precise line. Behind it, a round wooden
+          disc anchors the piece to your wall and hides the fixing completely.
+        </p>
+        <p class="reveal">
+          The steel tip at the front is the working end: rounded so it never snags a
+          sweater or scratches a bag, solid so it never bends. Hang a heavy winter coat,
+          a wet towel, a full tote — WICK doesn't care. It just holds, quietly,
+          for years.
+        </p>
+      </div>
+      <div class="spec-strip reveal">
+        <div class="spec"><span class="spec-k">Body</span><span class="spec-v">Solid ash / walnut</span></div>
+        <div class="spec"><span class="spec-k">Tip &amp; core</span><span class="spec-v">Steel</span></div>
+        <div class="spec"><span class="spec-k">Mount</span><span class="spec-v">Round wall disc</span></div>
+        <div class="spec"><span class="spec-k">Finish</span><span class="spec-v">Matte, soft-touch</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHIPPING -->
+  <section class="shipping" id="shipping">
+    <h2 class="section-title reveal">Shipping, step by step</h2>
+    <div class="ship-timeline">
+      <div class="ship-step reveal-scale">
+        <div class="ship-dot"></div>
+        <h3>Order placed</h3>
+        <p>Your order is confirmed instantly and you receive a confirmation email.</p>
+        <span class="ship-time">Day 0</span>
+      </div>
+      <div class="ship-step reveal-scale">
+        <div class="ship-dot"></div>
+        <h3>Processing</h3>
+        <p>We prepare and dispatch your WICK. You get a tracking number by email.</p>
+        <span class="ship-time">1–3 days</span>
+      </div>
+      <div class="ship-step reveal-scale">
+        <div class="ship-dot"></div>
+        <h3>On its way</h3>
+        <p>Tracked and insured delivery to your door, anywhere in the US.</p>
+        <span class="ship-time">7–15 business days</span>
+      </div>
+      <div class="ship-step reveal-scale">
+        <div class="ship-dot"></div>
+        <h3>On your wall</h3>
+        <p>Installed in minutes. If anything's wrong, our easy returns have you covered.</p>
+        <span class="ship-time">Same day</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPARISON -->
+  <section class="compare" id="compare">
+    <h2 class="section-title reveal">WICK vs. the usual suspects</h2>
+    <div class="compare-wrap reveal">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="compare-hero">WICK</th>
+            <th>Adhesive plastic hooks</th>
+            <th>Generic metal hooks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Material</td>
+            <td class="compare-hero">Solid wood + steel</td>
+            <td>Plastic</td>
+            <td>Hollow chromed metal</td>
+          </tr>
+          <tr>
+            <td>Holds heavy coats &amp; wet towels</td>
+            <td class="compare-hero">✓</td>
+            <td>Falls with weight</td>
+            <td>Usually</td>
+          </tr>
+          <tr>
+            <td>Visible screws</td>
+            <td class="compare-hero">None</td>
+            <td>None</td>
+            <td>Exposed</td>
+          </tr>
+          <tr>
+            <td>Looks like a design object</td>
+            <td class="compare-hero">✓</td>
+            <td>✗</td>
+            <td>✗</td>
+          </tr>
+          <tr>
+            <td>Ages well</td>
+            <td class="compare-hero">Wood gains character</td>
+            <td>Yellows &amp; peels</td>
+            <td>Chips &amp; rusts</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- MEDIA GRID: photos & video slots -->
+  <section class="media-grid-section" id="media">
+    <h2 class="section-title reveal">Up close</h2>
+    <div class="media-grid">
+      <div class="media-cell reveal-scale"><img src="assets/img/wick-walnut-pair.jpg" alt="WICK walnut pair" /></div>
+      <div class="media-cell reveal-scale"><img src="assets/img/wick-ash-pair.jpg" alt="WICK ash pair" /></div>
+      <div class="media-cell reveal-scale"><img src="assets/img/wick-collection-4.jpg" alt="The Collection" /></div>
+      <div class="media-cell media-video reveal-scale">
+        <!-- Video placeholder: drop your product video here -->
+        <div class="video-slot-inner">
+          <div class="video-slot-play">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M8 5.5v13l11-6.5-11-6.5Z" fill="currentColor"/></svg>
+          </div>
+          <p>Video coming soon</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section class="reviews" id="reviews">
+    <h2 class="section-title reveal">What people say</h2>
+    <div class="reviews-empty reveal" id="reviewsEmpty">
+      <p class="reviews-empty-big">Just landed in the US.</p>
+      <p>WICK is fresh on this side of the Atlantic — verified customer reviews will
+      appear here as the first orders arrive. Be one of the first walls.</p>
+      <button class="btn-primary shine" data-buy data-pack-dynamic><span>Be an early one</span></button>
+    </div>
+    <div class="reviews-grid" id="reviewsGrid"></div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="final-blob"></div>
+    <h2 class="reveal">Ready when your wall is.</h2>
+    <button class="btn-primary btn-large magnetic shine reveal" data-buy data-pack-dynamic>
+      <span>Get WICK now</span>
+      <svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-top">
+    <span class="logo">WICK<span class="logo-dot">.</span></span>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="#description">Description</a>
+      <a href="#reviews">Reviews</a>
+    </div>
+  </div>
+  <p class="footer-note">© 2026 WICK. All rights reserved.</p>
+</footer>
+
+<div class="sticky-buy" id="stickyBuy">
+  <div class="sticky-buy-info">
+    <img src="assets/img/wick-walnut-pair.jpg" alt="" />
+    <div>
+      <strong>WICK</strong>
+      <span id="stickyPrice">From $62.99</span>
+    </div>
+  </div>
+  <button class="btn-primary" data-buy data-pack-dynamic>Buy</button>
+</div>
+
+<!-- DISCOUNT POPUP -->
+<div class="promo-overlay" id="promoOverlay">
+  <div class="promo-modal">
+    <button class="promo-close" id="promoClose" aria-label="Close">×</button>
+    <p class="promo-eyebrow">A little welcome gift</p>
+    <h3 class="promo-title">10% off<br />your first WICK</h3>
+    <p class="promo-text">Use this code at checkout — it's on us.</p>
+    <button class="promo-code" id="promoCode" title="Click to copy">WELCOME10</button>
+    <button class="btn-primary btn-block shine promo-cta" data-buy data-pack-dynamic><span>Claim my 10%</span></button>
+    <p class="promo-small">Applied at checkout. One use per customer.</p>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

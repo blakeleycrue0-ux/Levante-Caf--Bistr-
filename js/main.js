@@ -10,6 +10,16 @@ const SHOPIFY_CHECKOUT = {
   collection: "https://REEMPLAZA-CON-TU-TIENDA.myshopify.com/cart/VARIANT_ID_COLLECTION:1",
 };
 
+/* Código de descuento del popup — créalo también en Shopify
+   (Descuentos → Crear descuento → 10%) o no funcionará al pagar. */
+const PROMO_CODE = "WELCOME10";
+const PROMO_DELAY_MS = 10000;
+
+/* Reseñas verificadas: añade aquí las reales cuando lleguen.
+   Formato: { name: "Sarah M.", stars: 5, text: "..." }
+   Mientras esté vacío, la sección muestra el mensaje "Just landed". */
+const REVIEWS = [];
+
 const PACK_PRICES = { pair: "$62.99", collection: "$96.99" };
 let currentPack = "pair";
 let currentFinish = "walnut";
@@ -37,6 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initTiltCards();
   initMouseParallax();
   initHeroLines();
+  initPromoPopup();
+  initReviews();
 });
 
 /* ---------- Custom cursor ---------- */
@@ -57,6 +69,7 @@ function initCursor() {
 /* ---------- Scroll progress bar ---------- */
 function initProgressBar() {
   const bar = document.getElementById("progressBar");
+  if (!bar) return;
   const update = () => {
     const h = document.documentElement;
     const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
@@ -69,6 +82,7 @@ function initProgressBar() {
 /* ---------- Nav background on scroll ---------- */
 function initNavScroll() {
   const nav = document.getElementById("nav");
+  if (!nav) return;
   const toggle = () => nav.classList.toggle("scrolled", window.scrollY > 40);
   window.addEventListener("scroll", toggle, { passive: true });
   toggle();
@@ -78,6 +92,7 @@ function initNavScroll() {
 function initMobileMenu() {
   const burger = document.getElementById("navBurger");
   const menu = document.getElementById("mobileMenu");
+  if (!burger || !menu) return;
   burger.addEventListener("click", () => {
     menu.classList.toggle("open");
   });
@@ -137,14 +152,17 @@ function initTilt() {
 function initSwatchesAndThumbs() {
   const frameImg = document.getElementById("productImg");
   const heroImg = document.getElementById("tiltImg");
+  if (!frameImg && !heroImg) return;
 
-  function setFinish(finish, imgSrc) {
+  window.setFinish = function (finish, imgSrc) {
     currentFinish = finish;
-    frameImg.style.opacity = 0;
-    setTimeout(() => {
-      frameImg.src = imgSrc;
-      frameImg.style.opacity = 1;
-    }, 180);
+    if (frameImg) {
+      frameImg.style.opacity = 0;
+      setTimeout(() => {
+        frameImg.src = imgSrc;
+        frameImg.style.opacity = 1;
+      }, 180);
+    }
     if (heroImg && finish !== "mix") heroImg.src = imgSrc;
 
     document.querySelectorAll(".swatch").forEach((s) =>
@@ -153,10 +171,14 @@ function initSwatchesAndThumbs() {
     document.querySelectorAll(".thumb").forEach((t) =>
       t.classList.toggle("active", t.dataset.finish === finish)
     );
-  }
+  };
 
   document.querySelectorAll(".swatch, .thumb").forEach((el) => {
-    el.addEventListener("click", () => setFinish(el.dataset.finish, el.dataset.img));
+    el.addEventListener("click", () => {
+      // finish is locked while The Collection is selected (it ships in both)
+      if (el.classList.contains("swatch") && currentPack === "collection") return;
+      window.setFinish(el.dataset.finish, el.dataset.img);
+    });
   });
 }
 
@@ -164,14 +186,30 @@ function initSwatchesAndThumbs() {
 function initPackOptions() {
   const btnPrice = document.getElementById("btnPrice");
   const stickyPrice = document.getElementById("stickyPrice");
+  const finishBlock = document.getElementById("finishBlock");
+  const finishNote = document.getElementById("finishNote");
+  const packOptions = document.querySelectorAll(".pack-option");
+  if (!packOptions.length) return;
 
-  document.querySelectorAll(".pack-option").forEach((opt) => {
+  packOptions.forEach((opt) => {
     opt.addEventListener("click", () => {
       currentPack = opt.dataset.pack;
-      document.querySelectorAll(".pack-option").forEach((o) => o.classList.remove("active"));
+      packOptions.forEach((o) => o.classList.remove("active"));
       opt.classList.add("active");
       if (btnPrice) btnPrice.textContent = PACK_PRICES[currentPack];
       if (stickyPrice) stickyPrice.textContent = "From " + PACK_PRICES[currentPack];
+
+      if (currentPack === "collection") {
+        // The Collection always ships 2 ash + 2 walnut: no finish choice
+        if (finishBlock) finishBlock.classList.add("locked");
+        if (finishNote) finishNote.textContent = "— includes both (2 ash + 2 walnut)";
+        if (window.setFinish) window.setFinish("mix", FINISH_IMG.mix);
+      } else {
+        if (finishBlock) finishBlock.classList.remove("locked");
+        if (finishNote) finishNote.textContent = "";
+        const back = currentFinish === "mix" ? "walnut" : currentFinish;
+        if (window.setFinish) window.setFinish(back, FINISH_IMG[back]);
+      }
     });
   });
 }
@@ -203,6 +241,7 @@ function initParallax() {
   const wrap = document.getElementById("parallaxImg");
   if (!wrap) return;
   const img = wrap.querySelector("img");
+  if (!img) return;
   window.addEventListener(
     "scroll",
     () => {
@@ -273,11 +312,71 @@ function initHeroLines() {
 /* ---------- Sticky buy bar ---------- */
 function initStickyBuy() {
   const bar = document.getElementById("stickyBuy");
-  const hero = document.querySelector(".hero");
-  if (!bar || !hero) return;
+  const sentinel = document.querySelector(".hero") || document.querySelector(".product-page-top");
+  if (!bar || !sentinel) return;
   const io = new IntersectionObserver(
     ([entry]) => bar.classList.toggle("show", !entry.isIntersecting),
     { threshold: 0 }
   );
-  io.observe(hero);
+  io.observe(sentinel);
+}
+
+/* ---------- Discount popup (10s after landing) ---------- */
+function initPromoPopup() {
+  const overlay = document.getElementById("promoOverlay");
+  if (!overlay) return;
+  const closeBtn = document.getElementById("promoClose");
+  const codeBtn = document.getElementById("promoCode");
+
+  // shown once per browser session, across both pages
+  if (sessionStorage.getItem("wickPromoSeen")) return;
+
+  setTimeout(() => {
+    overlay.classList.add("show");
+    sessionStorage.setItem("wickPromoSeen", "1");
+  }, PROMO_DELAY_MS);
+
+  const close = () => overlay.classList.remove("show");
+  closeBtn.addEventListener("click", close);
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) close();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") close();
+  });
+
+  if (codeBtn) {
+    codeBtn.textContent = PROMO_CODE;
+    codeBtn.addEventListener("click", () => {
+      navigator.clipboard && navigator.clipboard.writeText(PROMO_CODE);
+      codeBtn.classList.add("copied");
+      codeBtn.textContent = "Copied!";
+      setTimeout(() => {
+        codeBtn.classList.remove("copied");
+        codeBtn.textContent = PROMO_CODE;
+      }, 1400);
+    });
+  }
+}
+
+/* ---------- Reviews (real ones only — see REVIEWS above) ---------- */
+function initReviews() {
+  const grid = document.getElementById("reviewsGrid");
+  const empty = document.getElementById("reviewsEmpty");
+  if (!grid) return;
+
+  if (!REVIEWS.length) {
+    if (empty) empty.style.display = "";
+    return;
+  }
+  if (empty) empty.style.display = "none";
+  REVIEWS.forEach((r) => {
+    const card = document.createElement("div");
+    card.className = "review-card reveal-scale in";
+    card.innerHTML = `
+      <div class="review-stars">${"★".repeat(r.stars)}${"☆".repeat(5 - r.stars)}</div>
+      <p class="review-text">${r.text}</p>
+      <span class="review-name">${r.name}</span>`;
+    grid.appendChild(card);
+  });
 }
