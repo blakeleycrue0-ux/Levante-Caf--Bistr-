@@ -487,6 +487,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .compare-table td:first-child { color: var(--ink-soft); }
 .compare-hero { background: rgba(181,96,58,.07); font-weight: 500; }
 th.compare-hero { color: var(--rust); }
+.tbl-yes { color: var(--rust); vertical-align: middle; }
+.tbl-no { color: rgba(33,28,22,.35); vertical-align: middle; }
 
 /* media grid */
 .media-grid-section { padding: 6rem clamp(1.2rem, 4vw, 3.5rem); max-width: 1400px; margin: 0 auto; }
@@ -606,6 +608,8 @@ th.compare-hero { color: var(--rust); }
   padding: .8rem 1.3rem; font-size: .85rem;
 }
 .bestfor b { font-size: .74rem; letter-spacing: .12em; color: var(--rust); }
+.bestfor span { display: inline-flex; align-items: center; gap: .4rem; }
+.bestfor span svg { color: var(--rust); flex: 0 0 auto; }
 
 /* ---------- Benefit bullets ---------- */
 .benefit-bullets { list-style: none; display: flex; flex-direction: column; gap: 1rem; margin: 1.6rem 0 2rem; }
@@ -613,7 +617,8 @@ th.compare-hero { color: var(--rust); }
 .bullet-ico {
   flex: 0 0 auto; width: 42px; height: 42px; border-radius: 12px;
   background: var(--paper); border: 1px solid var(--line);
-  display: flex; align-items: center; justify-content: center; font-size: 1.15rem;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--rust);
 }
 .benefit-bullets b { display: block; font-size: .98rem; }
 .benefit-bullets small { color: var(--ink-soft); font-size: .85rem; line-height: 1.45; }
@@ -676,7 +681,8 @@ th.compare-hero { color: var(--rust); }
   transition: background .3s ease, transform .3s var(--ease);
 }
 .why-item:hover { background: rgba(251,248,243,.1); transform: translateY(-4px); }
-.why-ico { font-size: 1.5rem; display: block; margin-bottom: .7rem; }
+.why-ico { display: block; margin-bottom: .8rem; color: var(--ash); }
+.why-ico svg { display: block; }
 .why-item b { display: block; font-size: 1.02rem; margin-bottom: .35rem; color: var(--paper); }
 .why-item p { font-size: .88rem; color: rgba(251,248,243,.65); line-height: 1.55; }
 .why .btn-cart-ghost { justify-content: center; gap: .8rem; width: auto; padding-left: 2.4rem; padding-right: 2.4rem; }
@@ -745,7 +751,7 @@ th.compare-hero { color: var(--rust); }
 }
 .promo-pill.show { transform: translateY(0); }
 .promo-pill:hover { background: var(--rust); }
-.promo-pill-ico { font-size: 1.05rem; animation: giftBounce 2.8s ease-in-out infinite; }
+.promo-pill-ico { display: flex; color: var(--ash); animation: giftBounce 2.8s ease-in-out infinite; }
 @keyframes giftBounce {
   0%, 80%, 100% { transform: translateY(0) rotate(0); }
   86% { transform: translateY(-4px) rotate(-8deg); }
